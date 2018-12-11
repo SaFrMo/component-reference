@@ -5,7 +5,7 @@
         :style="cmpStyle"
         v-if="passesSearch()">
 
-        <h3 v-html="info.name"/>
+        <h2 class="name" v-html="info.name"/>
 
         <div class="tag-wrap">
             <h4 class="label">Tags:</h4>
@@ -17,7 +17,11 @@
             </ul>
         </div>
 
-        <div class="info-wrap" v-html="info.info"/>
+        <div class="info-wrap" v-html="info.content"/>
+
+        <div class="example-wrap">
+            <slot name="example"/>
+        </div>
 
     </li>
 
@@ -33,7 +37,7 @@ export default {
     props: {
         bg: {
             type: String,
-            default: 'tomato'
+            default: '#7ED9BA'
         }
     },
     computed: {
@@ -52,10 +56,21 @@ export default {
                 output.name = h2.children.find(t => t.text).text
             }
 
+            // get tags
             const ul = slot.find(s => s.tag == 'ul')
             const lis = ul.children.filter(child => child.tag == 'li')
             const tags = lis.map(li => li.children[0].text)
             output.tags = tags
+
+            // get the rest of the content
+            const contentIndex = slot.findIndex(s => s.tag == 'p')
+            output.content = slot
+                .slice(contentIndex)
+                .map(s => s.children)
+                .filter(s => s)
+                .map(s => s[0])
+                .map(s => (s.text ? '<p>' + s.text + '</p>' : ''))
+                .join('')
 
             return output
         }
@@ -76,9 +91,15 @@ export default {
 @import '../styles/base';
 
 .example-component {
-    background: var(--bg-color);
+    border: 2px solid var(--bg-color);
     padding: 20px;
+    border-radius: 15px;
+    background: white;
 
+    .name {
+        font-size: 28px;
+        text-align: left;
+    }
     .tag-wrap {
         font-style: italic;
         display: flex;
@@ -95,7 +116,7 @@ export default {
 
             li {
                 padding: 5px 15px 5px 10px;
-                background: rgba(black, 0.8);
+                background: $dark-main;
                 border-radius: 5px;
                 margin: 0 2px;
                 color: white;
@@ -104,6 +125,10 @@ export default {
     }
     .info-wrap {
         margin-top: 20px;
+    }
+
+    & + .example-component {
+        margin-top: 30px;
     }
 }
 </style>

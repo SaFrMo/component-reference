@@ -5,6 +5,12 @@ $accent-font: 'Open Sans', sans-serif;
 
 // Vars
 $light-gray: lighten(gray, 20%);
+$background: rgba(black, 0.01);
+$main: #7ed9ba;
+$light-main: lighten($main, 25%);
+$dark-main: darken($main, 25%);
+$code-bg: #1d1f21;
+$code-color: #fff;
 
 html,
 body {
@@ -12,4 +18,12 @@ body {
     min-height: 100%;
     width: 100%;
     font-family: $body-font;
+    background: $background;
+}
+code {
+    background: $code-bg;
+    padding: 5px 10px;
+    color: $code-color;
+    margin: 10px auto;
+    display: inline-block;
 }

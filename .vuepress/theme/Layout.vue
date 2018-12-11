@@ -27,20 +27,23 @@ export default {}
         padding: 20px 40px;
         max-width: 800px;
         margin: auto;
-        background: white;
     }
     .header-anchor {
-        color: $light-gray;
+        color: darken($light-gray, 60%);
         text-decoration: none;
 
         &:hover,
         &:focus {
-            color: darken($light-gray, 20%);
+            color: darken($light-gray, 40%);
         }
     }
     h1,
     h2 {
         text-align: center;
+    }
+    h3 {
+        background: $light-main;
+        padding: 10px;
     }
     .content.custom > *:first-child {
         display: none;
