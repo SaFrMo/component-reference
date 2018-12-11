@@ -35,4 +35,8 @@ export default () => {
         'component-list',
         require('./components/ComponentList').default
     )
+    Vue.component(
+        'example-component',
+        require('./components/ExampleComponent').default
+    )
 }

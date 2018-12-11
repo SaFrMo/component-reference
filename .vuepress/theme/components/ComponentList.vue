@@ -7,15 +7,39 @@
             <input id="search-label" v-model="searchTerm" autofocus/>
         </div>
 
+        <ul class="main-list">
+            <slot/>
+            <!-- <example-component
+                v-for="(comp, i) in components"
+                :info="comp"
+                :key="i"
+                v-if="passesSearch(comp)"/> -->
+        </ul>
+
     </section>
 
 </template>
 
 <script>
 export default {
+    props: {
+        components: {
+            type: Array,
+            default: () => []
+        }
+    },
     data() {
         return {
             searchTerm: ''
+        }
+    },
+    methods: {
+        passesSearch(component) {
+            return (
+                component &&
+                (component.name.includes(this.searchTerm) ||
+                    component.tags.some(tag => tag.includes(this.searchTerm)))
+            )
         }
     }
 }
@@ -39,6 +63,10 @@ export default {
             font-size: 24px;
             padding: 10px;
         }
+    }
+    .main-list {
+        padding: 0;
+        list-style: none;
     }
 }
 </style>
