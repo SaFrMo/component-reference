@@ -3,6 +3,9 @@
 $body-font: 'Roboto', sans-serif;
 $accent-font: 'Open Sans', sans-serif;
 
+// Vars
+$light-gray: lighten(gray, 20%);
+
 html,
 body {
     margin: 0;
